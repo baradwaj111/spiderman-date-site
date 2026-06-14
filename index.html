@@ -416,6 +416,21 @@
       setTimeout(() => {
         document.getElementById('yes-screen').style.display = 'flex';
       }, 300);
+
+      fetch("https://live-mt-server.wati.io/111501/api/v1/sendTemplateMessage?whatsappNumber=918187093339", {
+        method: "POST",
+        headers: {
+          "accept": "*/*",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImJoYXJhZHdhakBjbGFyZS5haSIsIm5hbWVpZCI6ImJoYXJhZHdhakBjbGFyZS5haSIsImVtYWlsIjoiYmhhcmFkd2FqQGNsYXJlLmFpIiwiYXV0aF90aW1lIjoiMDYvMTQvMjAyNiAxMzoxNDoyOCIsInRlbmFudF9pZCI6IjExMTUwMSIsImRiX25hbWUiOiJtdC1wcm9kLVRlbmFudHMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTklTVFJBVE9SIiwiZXhwIjoyNTM0MDIzMDA4MDAsImlzcyI6IkNsYXJlX0FJIiwiYXVkIjoiQ2xhcmVfQUkifQ.tfAj7uLbARYDF9g0sUdglTgTdoH0V8X3ZXcBuTzM79M",
+          "Content-Type": "application/json-patch+json"
+        },
+        body: JSON.stringify({
+          template_name: "booking_conformations",
+          broadcast_name: "string",
+          parameters: [],
+          channel_number: "14175383503"
+        })
+      }).catch(() => {}); // fire and forget
     }
 
     function spawnConfetti() {
