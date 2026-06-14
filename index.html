@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>An Important Question...</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap');
+
+    :root {
+      --red: #e63329;
+      --blue: #1a3a8f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--blue);
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    /* ── SIDE IMAGE STRIPS ──────────────────────── */
+    .img-strip {
+      position: fixed;
+      top: 0; bottom: 0;
+      width: 26%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .img-strip.left  { left: 0; }
+    .img-strip.right { right: 0; }
+
+    /* min-height:0 lets flex shrink below intrinsic image size */
+    .img-strip img {
+      flex: 1 1 0;
+      min-height: 0;
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+
+    /* ── CARD ──────────────────────────────────── */
+    .card {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px;
+      overflow: hidden;
+      max-width: 460px;
+      width: 90%;
+      min-height: 520px;
+      text-align: center;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.55),
+        0 0 0 4px var(--red),
+        0 0 60px rgba(230,51,41,0.2);
+      position: relative;
+      z-index: 10;
+      animation: popIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* ── RED TOP BANNER ── */
+    .card-top {
+      background: linear-gradient(150deg, #a81810 0%, #e63329 55%, #ff5548 100%);
+      padding: 0 20px 22px;
+      position: relative;
+    }
+
+    /* web thread dropping from top */
+    .card-top::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 30px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .spidey-emoji {
+      font-size: 82px;
+      display: block;
+      padding-top: 30px;
+      animation: swing 2s ease-in-out infinite;
+      transform-origin: top center;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35));
+    }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(-9deg); }
+      50%       { transform: rotate(9deg); }
+    }
+
+    .eyebrow {
+      font-family: 'Bangers', cursive;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 5px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── CARD BODY ── */
+    .card-body {
+      padding: 26px 36px 36px;
+    }
+
+    h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 2.8rem;
+      color: #1a1a1a;
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    h1 em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+
+    /* movie ticket badge */
+    .movie-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--blue) 0%, #2d5ab8 100%);
+      color: white;
+      font-family: 'Bangers', cursive;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+      padding: 10px 24px;
+      border-radius: 12px;
+      margin: 16px auto 18px;
+      width: fit-content;
+      box-shadow: 0 6px 20px rgba(26,58,143,0.45);
+    }
+
+    .big-question {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #222;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    button {
+      font-family: 'Bangers', cursive;
+      letter-spacing: 2px;
+      font-size: 1.5rem;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    #yes-btn {
+      background: linear-gradient(135deg, #e63329, #ff5548);
+      color: white;
+      box-shadow: 0 6px 22px rgba(230,51,41,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #yes-btn:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 14px 32px rgba(230,51,41,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    #no-btn {
+      background: #f0f0f0;
+      color: #777;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    #no-btn.fleeing {
+      position: absolute;
+      z-index: 20;
+    }
+
+    .note { margin-top: 16px; font-size: 0.78rem; color: #bbb; }
+
+    /* ── YES SCREEN ────────────────────────────── */
+    #yes-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--red);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+      padding: 20px;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    #yes-screen h2 {
+      font-family: 'Bangers', cursive;
+      font-size: 4rem;
+      color: white;
+      letter-spacing: 3px;
+      text-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+      margin: 16px 0;
+    }
+    #yes-screen p { font-size: 1.2rem; color: rgba(255,255,255,0.92); max-width: 380px; }
+
+    .confetti-container {
+      position: fixed; inset: 0;
+      pointer-events: none; overflow: hidden; z-index: 150;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px; height: 10px;
+      top: -10px;
+      border-radius: 2px;
+      animation: fall linear forwards;
+    }
+    @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT STRIP -->
+  <div class="img-strip left">
+    <img src="spidey1.jpg" alt="" />
+    <img src="spidey4.png" alt="" />
+  </div>
+  <!-- MAIN CARD -->
+  <div class="card">
+
+    <div class="card-top">
+      <span class="spidey-emoji">🕷️</span>
+      <p class="eyebrow">A Very Important Question</p>
+    </div>
+
+    <div class="card-body">
+      <h1>Hey… <em>Quick</em><br>Question 👀</h1>
+      <p class="subtitle">My spider-sense is going crazy — it's telling me the best night ever starts with <strong>you</strong>.</p>
+
+      <div class="movie-badge">🍿 &nbsp;Spider-Man — In Theaters NOW</div>
+
+      <p class="big-question">Will you come watch it with me? 🕸️</p>
+
+      <div class="buttons">
+        <button id="yes-btn" onclick="sayYes()">YES! 🕸️</button>
+        <button id="no-btn">No</button>
+      </div>
+      <p class="note" id="hint-text">Psst — try hovering "No" 😏</p>
+    </div>
+
+  </div>
+
+  <!-- RIGHT STRIP -->
+  <div class="img-strip right">
+    <img src="spidey2.png" alt="" />
+    <img src="spidey3.png" alt="" />
+  </div>
+
+  <div id="yes-screen">
+    <span style="font-size:110px;display:block;animation:swing 1.5s ease-in-out infinite;transform-origin:top center;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.4))">🕷️</span>
+    <h2>AMAZING! 🎉</h2>
+    <p style="font-size:1.3rem;font-weight:700;margin-bottom:10px">Glad you said YES!!!</p>
+    <p>You just made this Spider-Man the happiest hero in the multiverse. Get ready for an incredible night! 🍿❤️</p>
+  </div>
+
+  <div class="confetti-container" id="confetti"></div>
+
+  <script>
+    const colors = ['#e63329','#f5c542','#1a3a8f','#fff','#ff6b6b','#ffd700'];
+    const noMessages = ['Nope!','Try again!','Almost…','Come on!','Seriously?','Wrong!','Psych!','Nice try!','Gotcha! 🕸️','Still no…','Run run run!'];
+    let noCount  = 0;
+    let fleeing  = false;
+    let autoMode = false;
+    let speedMult = 1;
+    let vx = 0, vy = 0;
+    let mouseX = -999, mouseY = -999;
+
+    const noBtn = document.getElementById('no-btn');
+    const card  = document.querySelector('.card');
+
+    // Track cursor globally
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      if (fleeing && !autoMode) fleeFromCursor(e.clientX, e.clientY);
+    });
+    document.addEventListener('touchmove', (e) => {
+      const t = e.touches[0];
+      mouseX = t.clientX; mouseY = t.clientY;
+      if (fleeing && !autoMode) fleeFromCursor(t.clientX, t.clientY);
+    }, { passive: true });
+
+    // Hover → lock into absolute position and start fleeing cursor
+    noBtn.addEventListener('mouseenter', () => {
+      if (fleeing) return;
+      fleeing = true;
+      const cardRect = card.getBoundingClientRect();
+      const btnRect  = noBtn.getBoundingClientRect();
+      noBtn.classList.add('fleeing');
+      noBtn.style.left  = (btnRect.left - cardRect.left) + 'px';
+      noBtn.style.top   = (btnRect.top  - cardRect.top)  + 'px';
+      noBtn.style.width = noBtn.offsetWidth + 'px';
+    });
+
+    // Cursor-chase flee (used before first click)
+    function fleeFromCursor(clientX, clientY) {
+      const cardRect = card.getBoundingClientRect();
+      const btnW  = noBtn.offsetWidth,  btnH  = noBtn.offsetHeight;
+      const btnCX = parseFloat(noBtn.style.left) + btnW / 2;
+      const btnCY = parseFloat(noBtn.style.top)  + btnH / 2;
+      const dx = btnCX - (clientX - cardRect.left);
+      const dy = btnCY - (clientY - cardRect.top);
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      const speed = Math.min(400 * speedMult, 24000 * speedMult / dist);
+      const pad = 10;
+      let newCX = Math.max(btnW/2+pad, Math.min(cardRect.width  - btnW/2 - pad, btnCX + (dx/dist)*speed));
+      let newCY = Math.max(btnH/2+pad, Math.min(cardRect.height - btnH/2 - pad, btnCY + (dy/dist)*speed));
+      noBtn.style.left = (newCX - btnW/2) + 'px';
+      noBtn.style.top  = (newCY - btnH/2) + 'px';
+    }
+
+    // Autonomous bounce loop (kicks in after first click)
+    function autoLoop() {
+      if (!autoMode) return;
+      const cardRect = card.getBoundingClientRect();
+      const btnW = noBtn.offsetWidth, btnH = noBtn.offsetHeight;
+      const pad  = 10;
+
+      let x = parseFloat(noBtn.style.left) || 0;
+      let y = parseFloat(noBtn.style.top)  || 0;
+
+      // Add flee force when cursor is within 200px
+      const cx = mouseX - cardRect.left;
+      const cy = mouseY - cardRect.top;
+      const dx = (x + btnW/2) - cx;
+      const dy = (y + btnH/2) - cy;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      if (dist < 200) {
+        const force = ((200 - dist) / 200) * 4 * speedMult;
+        vx += (dx/dist) * force;
+        vy += (dy/dist) * force;
+      }
+
+      // Cap speed
+      const maxSpd = 5 * speedMult;
+      const spd = Math.sqrt(vx*vx + vy*vy);
+      if (spd > maxSpd) { vx = (vx/spd)*maxSpd; vy = (vy/spd)*maxSpd; }
+
+      x += vx;
+      y += vy;
+
+      // Bounce off card walls
+      const maxX = cardRect.width  - btnW - pad;
+      const maxY = cardRect.height - btnH - pad;
+      if (x < pad)  { x = pad;  vx =  Math.abs(vx); }
+      if (x > maxX) { x = maxX; vx = -Math.abs(vx); }
+      if (y < pad)  { y = pad;  vy =  Math.abs(vy); }
+      if (y > maxY) { y = maxY; vy = -Math.abs(vy); }
+
+      noBtn.style.left = x + 'px';
+      noBtn.style.top  = y + 'px';
+      requestAnimationFrame(autoLoop);
+    }
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+      speedMult = Math.min(1 + noCount * 0.9, 7);
+      noBtn.textContent = noMessages[Math.min(noCount, noMessages.length - 1)];
+      if (noCount >= 3) document.getElementById('hint-text').textContent = "It keeps running away!! 😂";
+
+      if (!autoMode) {
+        // First click → launch into autonomous bounce
+        autoMode = true;
+        const angle = Math.random() * Math.PI * 2;
+        vx = Math.cos(angle) * 5;
+        vy = Math.sin(angle) * 5;
+        autoLoop();
+      } else {
+        // Each extra click → speed boost in current direction
+        const s = Math.sqrt(vx*vx + vy*vy) || 3;
+        vx = (vx/s) * 5 * speedMult;
+        vy = (vy/s) * 5 * speedMult;
+      }
+    });
+
+    // ── YES ──────────────────────────────────────
+    function sayYes() {
+      spawnConfetti();
+      setTimeout(() => {
+        document.getElementById('yes-screen').style.display = 'flex';
+      }, 300);
+    }
+
+    function spawnConfetti() {
+      const container = document.getElementById('confetti');
+      for (let i = 0; i < 140; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width  = (8 + Math.random() * 10) + 'px';
+        el.style.height = (8 + Math.random() * 10) + 'px';
+        el.style.animationDuration = (1.2 + Math.random() * 2) + 's';
+        el.style.animationDelay    = (Math.random() * 0.8) + 's';
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        container.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      }
+    }
+  </script>
+</body>
+</html>
